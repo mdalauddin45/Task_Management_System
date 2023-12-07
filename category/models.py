@@ -1,7 +1,7 @@
 from django.db import models
-from category.models import Task
+from task.models import TaskModel
 
 # Create your models here.
 class Category(models.Model):
-    name = models.CharField(max_length=255)
-    tasks = models.ManyToManyField(Task)
+    name = models.CharField(max_length=100)
+    tasks = models.ManyToManyField(TaskModel)
