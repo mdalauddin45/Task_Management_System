@@ -1,4 +1,33 @@
-{% extends "base.html" %} {% block content %} {% load static %}
-<h1>This is show_task page</h1>
-
+{% extends "base.html" %}
+{% block content %}
+  {% load static %}
+  <h1>This is the home page</h1>
+  {% for category in data %}
+    <div class="row">
+      {% for task in category.tasks.all %}
+        <div class="col-sm-4 mb-3 mb-sm-0">
+          <div class="card">
+            <div class="card-body">
+              <p class="card-text">{{ task.id }}</p>
+              <h2 class="card-title">{{ task.title | slice:":50" }}{% if task.title|length > 50 %}..{% endif %}</h2>
+              <h5 class="card-text">{{ task.date }}</h5>
+              <p class="card-text">{{ task.description | slice:":100" }}{% if task.description|length > 100 %}..{% endif %}</p>
+              <p>
+                Category: {{ category.name | slice:":15" }}{% if category.name|length > 15 %}..{% endif %}
+              </p>
+              <p>
+                {% if not task.isCompleted %}
+                  <a href="{% url 'delete_task' task.id %}" class="btn btn-danger">Delete</a>
+                  <a href="{% url 'edit_task' task.id %}" class="btn btn-warning">Edit</a>
+                {% endif %}
+                {% if task.isCompleted %}
+                  <a class="btn btn-warning">Completed</a>
+                {% endif %}
+              </p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endfor %}
 {% endblock %}
