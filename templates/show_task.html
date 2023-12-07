@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
   {% load static %}
-  <h1>This is the home page</h1>
-  {% for category in data %}
-    <div class="row">
+  <h1>Welcome To The Show Task</h1>
+  <div class="row">
+    {% for category in data %}
       {% for task in category.tasks.all %}
-        <div class="col-sm-4 mb-3 mb-sm-0">
-          <div class="card">
+        <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+          <div class="card h-100">
             <div class="card-body">
               <p class="card-text">{{ task.id }}</p>
               <h2 class="card-title">{{ task.title | slice:":50" }}{% if task.title|length > 50 %}..{% endif %}</h2>
@@ -21,13 +21,13 @@
                   <a href="{% url 'edit_task' task.id %}" class="btn btn-warning">Edit</a>
                 {% endif %}
                 {% if task.isCompleted %}
-                  <a class="btn btn-warning">Completed</a>
+                  <span class="btn btn-success">Completed</span>
                 {% endif %}
               </p>
             </div>
           </div>
         </div>
       {% endfor %}
-    </div>
-  {% endfor %}
+    {% endfor %}
+  </div>
 {% endblock %}
